@@ -1,0 +1,5 @@
+app/code/community/Aydus/TaxExempt/                           app/code/community/Aydus/TaxExempt/
+app/design/frontend/base/default/layout/aydus/taxexempt.xml   app/design/frontend/base/default/layout/aydus/taxexempt.xml
+app/design/frontend/base/default/template/aydus/taxexempt/    app/design/frontend/base/default/template/aydus/taxexempt/
+app/etc/modules/Aydus_TaxExempt.xml                           app/etc/modules/Aydus_TaxExempt.xml
+skin/frontend/base/default/aydus/taxexempt/                   skin/frontend/base/default/aydus/taxexempt/

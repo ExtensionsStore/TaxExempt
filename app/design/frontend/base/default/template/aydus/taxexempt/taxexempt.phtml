@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * TaxExempt template
+ * 
+ * @category    Aydus
+ * @package     Aydus_TaxExempt
+ * @author      Aydus <davidt@aydus.com>
+ */
+if ($this->isActive()):
+?>
+<dt>
+    <input id="taxexempt-checkbox" value="1" type="checkbox" name="payment[taxexempt]" title="<?php echo $this->__('Tax Exempt') ?>" class="checkbox taxexempt-field" <?php echo $this->getChecked('taxexempt') ?>>        
+    <label for="payment[taxexempt]"><?php echo $this->__('Tax Exempt Number') ?></label>
+</dt>
+<dd>
+    <ul class="form-list" id="taxexempt-list" style="display:none;">
+        <li>
+            <label for="payment[taxexempt_number]"><?php echo $this->__('Tax Exempt Number') ?></label>
+            <div class="input-box">
+                <input type="text" id="taxexempt_number" name="payment[taxexempt_number]" title="<?php echo $this->__('Tax Exempt Number') ?>" class="input-text taxexempt-field" value="<?php echo $this->getTaxExempt('taxexempt_number') ?>" />
+            </div>
+        </li>
+        <?php if ($this->showState() && count($this->getRegions())>0):?>
+        <li>
+            <label for="payment[taxexempt_number]"><?php echo $this->__('State') ?></label>
+            <div class="input-box">
+                <select name="payment[taxexempt_state]" class="taxexempt-field">
+                <?php foreach ($this->getRegions() as $region): ?>
+                    <option value="<?php echo $region['value'] ?>" <?php if($this->getTaxExempt('taxexempt_state') == $region['value']):?>selected="selected"<?php endif;?>><?php echo $region['label'] ?></option>
+                <?php endforeach; ?>
+                </select>
+            </div>
+        </li> 
+        <?php endif; ?>       
+        <?php if ($this->isLoggedIn()): ?>
+        <li>
+            <label for="payment[taxexempt_save]">
+                <input value="1" type="checkbox" name="payment[taxexempt_save]" title="<?php echo $this->__('Save Tax Exemption Details') ?>" class="checkbox taxexempt-field" <?php echo $this->getChecked('taxexempt_save') ?>>       
+                <?php echo $this->__('Save Tax Exempt Details') ?> 
+            </label>
+        </li>
+        <?php endif; ?>       
+        
+    </ul>
+</dd>
+<script>
+if (taxexempt){
+	taxexempt.init();
+}
+</script>
+<?php 
+endif;
+?>

@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * TaxExempt config
+ * 
+ * @category    Aydus
+ * @package     Aydus_TaxExempt
+ * @author      Aydus <davidt@aydus.com>
+ */
+-->
+<config>
+    <modules>
+        <Aydus_TaxExempt>
+            <version>1.0.0</version>
+        </Aydus_TaxExempt>
+    </modules>
+    <adminhtml>
+        <events>
+            <core_block_abstract_to_html_after>
+                <observers>
+                    <payment_html_after>
+                        <type>model</type>
+                        <class>aydus_taxexempt/observer</class>
+                        <method>appendTaxExemptInfo</method>
+                    </payment_html_after>
+                </observers>
+            </core_block_abstract_to_html_after>
+        </events>
+    </adminhtml>
+    <frontend>
+		<events>
+			<controller_action_predispatch_checkout_onepage_savePayment>
+		        <observers>
+		            <taxexempt_applyExempt>
+		                <class>aydus_taxexempt/observer</class>
+		                <method>applyTaxExempt</method>
+		            </taxexempt_applyExempt>
+		        </observers>
+			</controller_action_predispatch_checkout_onepage_savePayment>
+		</events>      
+        <layout>
+            <updates>
+                <aydus_taxexempt module="Aydus_TaxExempt">
+                    <file>aydus/taxexempt.xml</file>
+                </aydus_taxexempt>
+            </updates>
+        </layout>
+    </frontend>    
+    <global>
+	    <events>
+	        <sales_order_place_after>
+	            <observers>
+	                <taxexempt_sales_order_place_after_observer>
+	                    <type>singleton</type>
+	                    <class>aydus_taxexempt/observer</class>
+	                    <method>saveTaxExemptDetails</method>
+	                </taxexempt_sales_order_place_after_observer>
+	            </observers>
+	        </sales_order_place_after>
+	    </events>
+		<blocks>
+			<aydus_taxexempt>
+				<class>Aydus_TaxExempt_Block</class>
+			</aydus_taxexempt>
+		</blocks>
+		<helpers>
+			<aydus_taxexempt>
+				<class>Aydus_TaxExempt_Helper</class>
+			</aydus_taxexempt>
+		</helpers>
+		<models>
+			<aydus_taxexempt>
+				<class>Aydus_TaxExempt_Model</class>
+                <resourceModel>aydus_taxexempt_resource</resourceModel>
+			</aydus_taxexempt>
+            <aydus_taxexempt_resource>
+                <class>Aydus_TaxExempt_Model_Resource</class>
+                <entities>
+                    <order>
+                        <table>aydus_taxexempt_order</table>
+                    </order>
+                </entities>
+            </aydus_taxexempt_resource>			
+		</models>
+        <resources>
+            <aydus_taxexempt_setup>
+                <setup>
+                    <module>Aydus_TaxExempt</module>
+                    <class>Mage_Customer_Model_Resource_Setup</class>
+                </setup>
+            </aydus_taxexempt_setup>
+        </resources>
+    </global>
+    <default>
+        <tax>
+            <taxexempt>
+                <active>1</active>
+                <show_state>1</show_state>
+            </taxexempt>
+        </tax>          
+    </default>     
+</config>

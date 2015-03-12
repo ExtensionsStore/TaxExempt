@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * TaxExempt layout
+ * 
+ * @category    Aydus
+ * @package     Aydus_TaxExempt
+ * @author      Aydus <davidt@aydus.com>
+ */
+-->
+<layout version="0.1.0">
+
+	<checkout_onepage_index>
+	
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>aydus/taxexempt/taxexempt.js</name></action>
+        </reference>
+	
+	</checkout_onepage_index>
+
+
+    <checkout_onepage_progress_payment>
+    <!-- Mage_Checkout -->
+    <remove name="right"/>
+    <remove name="left"/>
+
+    <block type="checkout/onepage_progress" name="root" output="toHtml" template="checkout/onepage/progress/payment.phtml">
+        <block type="checkout/onepage_payment_info" name="payment_info">
+            <action method="setInfoTemplate"><method></method><template></template></action>
+        </block>
+        <action method="setInfoTemplate"><method></method><template></template></action>
+    </block>
+    </checkout_onepage_progress_payment>
+
+
+    <!--
+    One page checkout payment methods block
+    -->
+    <checkout_onepage_paymentmethod>
+    
+    	<reference name="checkout.onepage.payment.methods.additional">
+        	<block type="aydus_taxexempt/taxexempt" name="taxexempt_additional" template="aydus/taxexempt/taxexempt.phtml" />
+    	</reference>
+
+    </checkout_onepage_paymentmethod>
+
+</layout>

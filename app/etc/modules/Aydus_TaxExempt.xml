@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * TaxExempt module
+ *
+ * @category    Aydus
+ * @package     Aydus_TaxExempt
+ * @author      Aydus <davidt@aydus.com>
+ */
+-->
+<config>
+    <modules>
+        <Aydus_TaxExempt>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Aydus_TaxExempt>
+    </modules>
+</config>
