@@ -36,7 +36,7 @@ if ($this->isActive()):
         <?php if ($this->isLoggedIn()): ?>
         <li>
             <label for="payment[taxexempt_save]">
-                <input value="1" type="checkbox" name="payment[taxexempt_save]" title="<?php echo $this->__('Save Tax Exemption Details') ?>" class="checkbox taxexempt-field" <?php echo $this->getChecked('taxexempt_save') ?>>       
+                <input value="1" type="checkbox" name="payment[taxexempt_save]" checked="checked" title="<?php echo $this->__('Save Tax Exemption Details') ?>" class="checkbox taxexempt-field" <?php echo $this->getChecked('taxexempt_save') ?>>       
                 <?php echo $this->__('Save Tax Exempt Details') ?> 
             </label>
         </li>

@@ -47,7 +47,7 @@ function TaxExempt($)
 
 if (!window.jQuery) {
 
-	document.write('<script src="//ajax.googleapis.com/ajax/libs/$/1.11.2/$.min.js">\x3C/script><script>$.noConflict(); var taxexempt = new TaxExempt(jQuery); jQuery(function(){ taxexempt.init(); });</script>');
+	document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script><script>jQuery.noConflict(); var taxexempt = new TaxExempt(jQuery); jQuery(function(){ taxexempt.init(); });</script>');
 
 } else {
 

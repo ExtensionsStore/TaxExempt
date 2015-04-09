@@ -12,15 +12,17 @@ class Aydus_TaxExempt_Model_Observer
 {
     /**
      * 
-     * @see controller_action_predispatch_checkout_onepage_savePayment
+     * @see sales_quote_payment_import_data_before
      * @param Varien_Event_Observer $observer
      */
     public function applyTaxExempt($observer)
     {
-        $payment = Mage::app()->getRequest()->getPost('payment');
+        $inputObject = $observer->getInput();
+        $payment = $inputObject->getData();
+                
         $model = Mage::getModel('aydus_taxexempt/taxexempt');
         
-        if (is_array($payment) && $payment['taxexempt'] && $payment['taxexempt_number']){
+        if (is_array($payment) && isset($payment['taxexempt']) && $payment['taxexempt'] && isset($payment['taxexempt_number'])){
                     
             $model->applyTaxExempt(true, $payment);
         
@@ -30,7 +32,7 @@ class Aydus_TaxExempt_Model_Observer
         }
 
     }
-    
+        
     /**
      * 
      * @see core_block_abstract_to_html_after
@@ -43,28 +45,32 @@ class Aydus_TaxExempt_Model_Observer
         if ($block->getNameInLayout()=='order_payment'){
             
             $order = Mage::registry('current_order');
-            $taxExemptOrderModel = Mage::getModel('aydus_taxexempt/order');
-            $taxExemptOrderModel->load($order->getId(),'order_id');
             
-            if ($taxExemptOrderModel->getId()){
+            if ($order && $order->getId()){
                 
-                $transport = $observer->getTransport();
-                $html = $transport->getHtml();
+                $taxExemptOrderModel = Mage::getModel('aydus_taxexempt/order');
+                $taxExemptOrderModel->load($order->getId(),'order_id');
                 
-                $taxexemptNumber = $taxExemptOrderModel->getTaxexemptNumber();
-                $taxexemptState = $taxExemptOrderModel->getTaxexemptState();
-                if (is_numeric($taxexemptState)){
-                    $region = Mage::getModel('directory/region')->load($taxexemptState);
-                    if($region->getId()){
-                        $taxexemptState = $region->getDefaultName();
+                if ($taxExemptOrderModel->getId()){
+                
+                    $transport = $observer->getTransport();
+                    $html = $transport->getHtml();
+                
+                    $taxexemptNumber = $taxExemptOrderModel->getTaxexemptNumber();
+                    $taxexemptState = $taxExemptOrderModel->getTaxexemptState();
+                    if (is_numeric($taxexemptState)){
+                        $region = Mage::getModel('directory/region')->load($taxexemptState);
+                        if($region->getId()){
+                            $taxexemptState = $region->getDefaultName();
+                        }
                     }
-                }
                 
-                $taxExemptDetails = '<br /> Tax Exempt Number: ' . $taxexemptNumber;
-                $taxExemptDetails .= '<br /> Tax Exempt State: ' . $taxexemptState;
+                    $taxExemptDetails = '<br /> Tax Exempt Number: ' . $taxexemptNumber;
+                    $taxExemptDetails .= '<br /> Tax Exempt State: ' . $taxexemptState;
                 
-                $transport->setHtml($html . $taxExemptDetails);
+                    $transport->setHtml($html . $taxExemptDetails);
                 
+                }                
             }
             
         }

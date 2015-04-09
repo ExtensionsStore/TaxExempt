@@ -5,7 +5,7 @@
  *
  * @category    Aydus
  * @package     Aydus_TaxExempt
- * @author     	Aydus Consulting <davidt@aydus.com>
+ * @author     	Aydus <davidt@aydus.com>
  */
 
 class Aydus_TaxExempt_Block_Taxexempt extends Mage_Payment_Block_Form
@@ -54,6 +54,11 @@ class Aydus_TaxExempt_Block_Taxexempt extends Mage_Payment_Block_Form
         return $customerSession->isLoggedIn();
     }
     
+    public function getTaxExemptGroup()
+    {
+        return Mage::getModel('aydus_taxexempt/taxexempt')->getCustomerGroup();
+    }
+    
     public function getChecked($field)
     {
         $checkoutSession = Mage::getSingleton('checkout/session');
@@ -71,7 +76,7 @@ class Aydus_TaxExempt_Block_Taxexempt extends Mage_Payment_Block_Form
             if ($customerSession->isLoggedIn()){
                 $customer = $customerSession->getCustomer();
                 
-                return ($customer->getTaxVat()) ? 'checked="checked"' : '';
+                return ($customer->getGroupId() == $this->getTaxExemptGroup()->getId()) ? 'checked="checked"' : '';
               
             }
             
@@ -88,6 +93,35 @@ class Aydus_TaxExempt_Block_Taxexempt extends Mage_Payment_Block_Form
         if (is_array($taxExempt) && count($taxExempt)>0 && isset($taxExempt[$field])) {
             
             return $taxExempt[$field];
+            
+        } else {
+            
+            $customerSession = Mage::getSingleton('customer/session');
+            
+            if ($customerSession->isLoggedIn()){
+                
+                $customer = $customerSession->getCustomer();
+                
+                if ($customer->getGroupId() == $this->getTaxExemptGroup()->getId()){
+                    
+                    if ($field == 'taxexempt_number'){
+                        
+                        return $customer->getTaxvat();
+                        
+                    } else if ($field == 'taxexempt_state'){
+                        
+                        return $customer->getTaxvatState();
+                        
+                    } else {
+                        
+                        return $customer->getData($field);
+                        
+                    }
+                    
+                    
+                }
+                        
+            }            
         }
         
         return false;

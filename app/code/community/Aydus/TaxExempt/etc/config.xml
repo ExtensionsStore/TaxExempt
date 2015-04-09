@@ -28,16 +28,6 @@
         </events>
     </adminhtml>
     <frontend>
-		<events>
-			<controller_action_predispatch_checkout_onepage_savePayment>
-		        <observers>
-		            <taxexempt_applyExempt>
-		                <class>aydus_taxexempt/observer</class>
-		                <method>applyTaxExempt</method>
-		            </taxexempt_applyExempt>
-		        </observers>
-			</controller_action_predispatch_checkout_onepage_savePayment>
-		</events>      
         <layout>
             <updates>
                 <aydus_taxexempt module="Aydus_TaxExempt">
@@ -48,6 +38,14 @@
     </frontend>    
     <global>
 	    <events>
+	    	<sales_quote_payment_import_data_before>
+		        <observers>
+		            <taxexempt_applyExempt>
+		                <class>aydus_taxexempt/observer</class>
+		                <method>applyTaxExempt</method>
+		            </taxexempt_applyExempt>
+		        </observers>	    	
+	    	</sales_quote_payment_import_data_before>
 	        <sales_order_place_after>
 	            <observers>
 	                <taxexempt_sales_order_place_after_observer>

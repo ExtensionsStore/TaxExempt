@@ -5,7 +5,7 @@
  *
  * @category    Aydus
  * @package     Aydus_TaxExempt
- * @author     	Aydus Consulting <davidt@aydus.com>
+ * @author     	Aydus <davidt@aydus.com>
  */
 
 $this->startSetup();
@@ -39,22 +39,28 @@ if (!$attributeId){
 
     $this->addAttribute('customer', $attributeCode, array(
             'type' => 'varchar',
-            'input' => 'text',
+            'input' => 'select',
             'label' => $frontendLabel[0],
-            'source' => '',
+            'source' => 'aydus_taxexempt/source_region',
             'backend' => '',
             'global' => 1,
             'visible' => false,
             'required' => false,
             'user_defined' => true,
             'visible_on_front' => false,
+            'sort_order' => 101,
             'note' => 'Tax Exempt State'
     ));
+    
+    //assign to forms
+    $usedInForms = array(
+            'adminhtml_customer',
+    );    
 
     $attributeId = $this->getAttributeId($customerEntityTypeId, $attributeCode);
     $attribute = Mage::getSingleton('eav/config')->getAttribute('customer', $attributeCode);
     $attribute->load($attribute->getId());
-    $attribute->setSortOrder(101)->setIsSystem(0);
+    $attribute->setUsedInForms($usedInForms)->setSortOrder(101)->setIsSystem(0);
     $attribute->save();    
 }
 
