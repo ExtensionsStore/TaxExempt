@@ -42,7 +42,7 @@ class Aydus_TaxExempt_Model_Observer
     {
         $block = $observer->getBlock();
         
-        if ($block->getNameInLayout()=='order_payment'){
+        if ($block->getNameInLayout()=='order_payment' || $block->getNameInLayout()=='sales.order.info.child0'){
             
             $order = Mage::registry('current_order');
             
@@ -65,8 +65,10 @@ class Aydus_TaxExempt_Model_Observer
                         }
                     }
                 
-                    $taxExemptDetails = '<br /> Tax Exempt Number: ' . $taxexemptNumber;
-                    $taxExemptDetails .= '<br /> Tax Exempt State: ' . $taxexemptState;
+                    $taxExemptDetails = (($block->getNameInLayout()=='order_payment') ? '<br /> ' : '').'Tax Exempt Number: ' . $taxexemptNumber;
+                    if ($taxexemptState){
+                        $taxExemptDetails .= '<br /> Tax Exempt State: ' . $taxexemptState;
+                    }
                 
                     $transport->setHtml($html . $taxExemptDetails);
                 

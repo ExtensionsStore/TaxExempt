@@ -11,22 +11,9 @@
 <config>
     <modules>
         <Aydus_TaxExempt>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </Aydus_TaxExempt>
     </modules>
-    <adminhtml>
-        <events>
-            <core_block_abstract_to_html_after>
-                <observers>
-                    <payment_html_after>
-                        <type>model</type>
-                        <class>aydus_taxexempt/observer</class>
-                        <method>appendTaxExemptInfo</method>
-                    </payment_html_after>
-                </observers>
-            </core_block_abstract_to_html_after>
-        </events>
-    </adminhtml>
     <frontend>
         <layout>
             <updates>
@@ -38,6 +25,15 @@
     </frontend>    
     <global>
 	    <events>
+            <core_block_abstract_to_html_after>
+                <observers>
+                    <payment_html_after>
+                        <type>model</type>
+                        <class>aydus_taxexempt/observer</class>
+                        <method>appendTaxExemptInfo</method>
+                    </payment_html_after>
+                </observers>
+            </core_block_abstract_to_html_after>	    
 	    	<sales_quote_payment_import_data_before>
 		        <observers>
 		            <taxexempt_applyExempt>
