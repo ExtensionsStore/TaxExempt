@@ -41,10 +41,11 @@ class Aydus_TaxExempt_Model_Observer
     public function appendTaxExemptInfo($observer)
     {
         $block = $observer->getBlock();
-        
-        if ($block->getNameInLayout()=='order_payment' || 
-                $block->getNameInLayout()=='sales.order.info.child0' || 
-                is_subclass_of($block, 'Mage_Payment_Block_Info')){
+
+        if ($block->getNameInLayout()=='order_payment' ||
+                $block->getNameInLayout()=='sales.order.info.child0' ||
+                get_class($block) == 'Mage_Payment_Block_Info' ||
+                is_subclass_of($block, 'Mage_Payment_Block_Info')){        
             
             $order = Mage::registry('current_order');
             
