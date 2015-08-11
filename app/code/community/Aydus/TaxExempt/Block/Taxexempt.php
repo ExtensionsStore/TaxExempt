@@ -27,7 +27,7 @@ class Aydus_TaxExempt_Block_Taxexempt extends Mage_Payment_Block_Form
     
     public function showState()
     {
-        if (Mage::getStoreConfig('tax/taxexempt/show_state');){
+        if (Mage::getStoreConfig('tax/taxexempt/show_state')){
             return true;
         } else {
             return Mage::getStoreConfig('tax/aydus_taxexempt/show_state');
