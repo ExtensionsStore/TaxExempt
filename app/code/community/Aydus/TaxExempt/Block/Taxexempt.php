@@ -18,12 +18,20 @@ class Aydus_TaxExempt_Block_Taxexempt extends Mage_Payment_Block_Form
     
     public function isActive()
     {
-        return Mage::getStoreConfig('tax/taxexempt/active');
+        if (Mage::getStoreConfig('tax/taxexempt/active')){
+            return true;
+        } else {
+            return Mage::getStoreConfig('tax/aydus_taxexempt/active');
+        }
     }
     
     public function showState()
     {
-        return Mage::getStoreConfig('tax/taxexempt/show_state');
+        if (Mage::getStoreConfig('tax/taxexempt/show_state');){
+            return true;
+        } else {
+            return Mage::getStoreConfig('tax/aydus_taxexempt/show_state');
+        }
     }    
     
     public function getRegions()
