@@ -87,6 +87,9 @@
     </global>
     <default>
         <tax>
+        	<aydus_taxexempt>
+        		<version>1.0.2</version>
+        	</aydus_taxexempt>
             <taxexempt>
                 <active>1</active>
                 <show_state>1</show_state>

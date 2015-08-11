@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * TaxExempt Acl
+ * 
+ * @category    Aydus
+ * @package     Aydus_TaxExempt
+ * @author      Aydus <davidt@aydus.com>
+ */
+-->
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <aydus_taxexempt translate="title" module="aydus_taxexempt">
+                                        <title>Tax Exempt Extension</title>
+                                    </aydus_taxexempt>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
