@@ -49,6 +49,10 @@ class Aydus_TaxExempt_Model_Observer
             
             $order = Mage::registry('current_order');
             
+            if (!$order || !$order->getId()){
+                $order = Mage::registry('tax_exempt_order');
+            }
+            
             if ($order && $order->getId()){
                 
                 $taxExemptOrderModel = Mage::getModel('aydus_taxexempt/order');
@@ -72,8 +76,10 @@ class Aydus_TaxExempt_Model_Observer
                     if ($taxexemptState){
                         $taxExemptDetails .= '<br /> Tax Exempt State: ' . $taxexemptState;
                     }
-                
-                    $transport->setHtml($html . $taxExemptDetails);
+                    
+                    if (!preg_match('/Tax Exempt/', $html)){
+                        $transport->setHtml($html . $taxExemptDetails);
+                    }
                 
                 }                
             }
